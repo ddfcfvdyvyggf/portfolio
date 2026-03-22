@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ahmed Bakry - Back-end Developer</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f6f6f4;
+      --text: #111110;
+      --text-secondary: #6b6b68;
+      --text-tertiary: #9d9d99;
+      --border: rgba(0,0,0,0.12);
+      --border-secondary: rgba(0,0,0,0.22);
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a18;
+        --bg-secondary: #242422;
+        --text: #f0ede8;
+        --text-secondary: #9d9d99;
+        --text-tertiary: #6b6b68;
+        --border: rgba(255,255,255,0.12);
+        --border-secondary: rgba(255,255,255,0.22);
+      }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2rem;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+    .nav-logo { font-size: 15px; font-weight: 500; letter-spacing: -0.3px; color: var(--text); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    section { padding: 4.5rem 2rem; max-width: 860px; margin: 0 auto; }
+    .divider { height: 0.5px; background: var(--border); max-width: 860px; margin: 0 auto; }
+    .section-label {
+      font-size: 11px; font-weight: 500; letter-spacing: 1.8px;
+      text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 2.5rem;
+    }
+
+    .hero { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+    .hero-tag { font-size: 12px; font-weight: 500; color: var(--text-secondary); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .hero h1 { font-size: 44px; font-weight: 500; color: var(--text); letter-spacing: -1.2px; line-height: 1.15; margin-bottom: 1rem; }
+    .hero h1 span { color: var(--text-secondary); }
+    .hero p { font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 520px; margin-bottom: 2rem; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--text); color: var(--bg); border: none;
+      padding: 10px 20px; border-radius: var(--radius-md);
+      font-size: 13px; font-weight: 500; cursor: pointer;
+      text-decoration: none; display: inline-block; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.75; }
+
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 0.5px solid var(--border-secondary);
+      padding: 10px 20px; border-radius: var(--radius-md);
+      font-size: 13px; cursor: pointer; text-decoration: none;
+      display: inline-block; transition: background 0.2s;
+    }
+    .btn-outline:hover { background: var(--bg-secondary); }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .skill-card {
+      background: var(--bg-secondary); border-radius: var(--radius-lg);
+      padding: 1.2rem; border: 0.5px solid var(--border);
+    }
+    .skill-card h4 { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      background: var(--bg); border: 0.5px solid var(--border);
+      color: var(--text-secondary); font-size: 11px; padding: 3px 10px; border-radius: 99px;
+    }
+
+    .projects-list {
+      display: flex; flex-direction: column;
+      border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .project-item {
+      background: var(--bg); padding: 1.4rem 1.5rem;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 1rem; border-bottom: 0.5px solid var(--border);
+      text-decoration: none; transition: background 0.15s;
+    }
+    .project-item:last-child { border-bottom: none; }
+    .project-item:hover { background: var(--bg-secondary); }
+    .project-info h3 { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .project-info p { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+    .project-arrow { font-size: 16px; color: var(--text-tertiary); flex-shrink: 0; margin-top: 2px; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .contact-card {
+      background: var(--bg-secondary); border-radius: var(--radius-lg);
+      border: 0.5px solid var(--border); padding: 1.2rem 1.5rem;
+      display: flex; flex-direction: column; gap: 4px;
+      text-decoration: none; transition: border-color 0.2s;
+    }
+    .contact-card:hover { border-color: var(--border-secondary); }
+    .contact-card .label { font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.5px; }
+    .contact-card .value { font-size: 14px; font-weight: 500; color: var(--text); }
+
+    footer {
+      text-align: center; padding: 2rem; font-size: 12px;
+      color: var(--text-tertiary); border-top: 0.5px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.2rem; }
+      section { padding: 3rem 1.2rem; }
+      .hero h1 { font-size: 30px; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#">Ahmed Bakry</a>
+    <div class="nav-links">
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-tag">Back-end Developer</div>
+    <h1>Building the logic<br><span>behind great products.</span></h1>
+    <p>I design and build reliable, scalable server-side systems — from REST APIs to databases to cloud infrastructure.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#projects">View Projects</a>
+      <a class="btn-outline" href="#contact">Get in Touch</a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="skills">
+    <div class="section-label">Skills &amp; Stack</div>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <h4>Languages</h4>
+        <div class="skill-tags">
+          <span class="tag">C#</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">SQL</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h4>Frameworks</h4>
+        <div class="skill-tags">
+          <span class="tag">.NET</span>
+          <span class="tag">Django</span>
+          <span class="tag">Express</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h4>Databases</h4>
+        <div class="skill-tags">
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">MongoDB</span>
+          <span class="tag">Redis</span>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h4>DevOps</h4>
+        <div class="skill-tags">
+          <span class="tag">Docker</span>
+          <span class="tag">Linux</span>
+          <span class="tag">Git</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="projects">
+    <div class="section-label">Projects</div>
+    <div class="projects-list">
+
+      <a class="project-item" href="https://github.com/ahmedbakry/project-1" target="_blank">
+        <div class="project-info">
+          <h3>REST API - E-commerce Platform</h3>
+          <p>Full backend for an online store with auth, orders, payments, and admin panel.</p>
+          <div class="project-tags">
+            <span class="tag">Node.js</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">JWT</span>
+          </div>
+        </div>
+        <div class="project-arrow">&#8599;</div>
+      </a>
+
+      <a class="project-item" href="https://github.com/ahmedbakry/project-2" target="_blank">
+        <div class="project-info">
+          <h3>Real-time Chat Service</h3>
+          <p>WebSocket-based messaging system with rooms, notifications, and message history.</p>
+          <div class="project-tags">
+            <span class="tag">Socket.io</span>
+            <span class="tag">Redis</span>
+            <span class="tag">MongoDB</span>
+          </div>
+        </div>
+        <div class="project-arrow">&#8599;</div>
+      </a>
+
+      <a class="project-item" href="https://github.com/ahmedbakry/project-3" target="_blank">
+        <div class="project-info">
+          <h3>Task Management API</h3>
+          <p>Team task tracker with role-based permissions, deadlines, and email notifications.</p>
+          <div class="project-tags">
+            <span class="tag">Django</span>
+            <span class="tag">Celery</span>
+            <span class="tag">PostgreSQL</span>
+          </div>
+        </div>
+        <div class="project-arrow">&#8599;</div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="contact">
+    <div class="section-label">Contact</div>
+    <div class="contact-grid">
+
+      <a class="contact-card" id="email-link" href="#">
+        <span class="label">Email</span>
+        <span class="value" id="email-display"></span>
+      </a>
+
+      <a class="contact-card" href="https://github.com/ahmedbakry" target="_blank">
+        <span class="label">GitHub</span>
+        <span class="value">github.com/ahmedbakry</span>
+      </a>
+
+      <a class="contact-card" href="https://www.linkedin.com/in/ahmed-bakry-146544390" target="_blank">
+        <span class="label">LinkedIn</span>
+        <span class="value">linkedin.com/in/ahmed-bakry</span>
+      </a>
+
+      <a class="contact-card" href="https://wa.me/201155073747" target="_blank">
+        <span class="label">WhatsApp</span>
+        <span class="value">+20 115 507 3747</span>
+      </a>
+
+      <div class="contact-card">
+        <span class="label">Location</span>
+        <span class="value">Cairo, Egypt</span>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>Ahmed Bakry - Back-end Developer</footer>
+
+  <script>
+    (function() {
+      var c = [97,104,109,101,100,98,97,107,114,121,115,104,97,109,105,121,97,64,103,109,97,105,108,46,99,111,109];
+      var email = '';
+      for (var i = 0; i < c.length; i++) { email += String.fromCharCode(c[i]); }
+      var link = document.getElementById('email-link');
+      var disp = document.getElementById('email-display');
+      if (link) link.setAttribute('href', 'mai' + 'lto:' + email);
+      if (disp) disp.textContent = email;
+    })();
+  </script>
+
+</body>
+</html>
